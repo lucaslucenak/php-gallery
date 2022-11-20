@@ -43,6 +43,16 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.col-img {
+    width: 1000px;
+    height: 1212122px;
+    background: aqua;
+}
+
+.gallery-img {
+    height: 800rem;
+}
+
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
