@@ -29,40 +29,50 @@ if (isset($_POST['fileSubmit'])) {
     // File properties stuff
     if (!in_array(strtolower($submittedFileType), $allowedFileTypes)) {
         echo "File not allowed";
-        $errors[] = "Not allowed file extension";
+        $errors[] = "file-extension=not-allowed";
 //        exit();
     }
 
     if (!$submittedFileError === 0) {
         echo "You got an error";
-        $errors[] = "Error at submitting file";
+        $errors[] = "submitting=error";
 //        exit();
     }
 
 
     // Check if it has some empty field
     if (empty($galleryTitle)) {
-        $errors[] = "Title field empty";
+        $errors[] = "title=empty";
     }
     if (empty($galleryName)) {
-        $errors[] = "Name field empty";
+        $errors[] = "name=empty";
     }
     if (empty($galleryCategory)) {
-        $errors[] = "Category field empty";
+        $errors[] = "category=empty";
     }
     if (empty($galleryDescription)) {
-        $errors[] = "Description field empty";
+        $errors[] = "description=empty";
     }
 
-    // If is all ok
-    if (in_array(strtolower($submittedFileType), $allowedFileTypes) && $submittedFileError === 0 && $submittedFileSize < 2000000) {
+
+    if (sizeof($errors) != 0) {
+        $location = "Location: ../index.php?";
+        foreach ($errors as $error) {
+            $location .= $error . '&';
+        }
+        $location = rtrim($location, "&");
+        header($location);
+    }
+    else {  // If is all ok
         $galleryName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
+        move_uploaded_file($submittedFileTmpName, '../assets/img/gallery/' . $galleryName);
+
+        $connection = new Connection();
+        $query = "INSERT INTO tb_gallery (title, name, category, description) VALUES ('$galleryTitle', '$galleryName', '$galleryCategory', '$galleryDescription');";
+        $queryRun = mysqli_query($connection->getCon(), $query);
+
+        header("Location: ../index.php?upload=success");
+
     }
-
-
-
-
-    print_r($galleryName);
-    print_r($errors);
 
 }
