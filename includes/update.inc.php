@@ -4,7 +4,8 @@ include_once("../db/connection/Connection.php");
 if(isset($_POST['fileUpdate'])) {
     $galleryId = $_POST['galleryId'];
     $galleryTitle = strtolower(str_replace(" ", "-", $_POST['galleryTitle']));
-    $galleryName = $_POST['galleryName'];
+    $galleryOldName = $_POST['galleryOldName'];
+    $galleryNewName = $_POST['galleryNewName'];
     $galleryCategory = $_POST['galleryCategory'];
     $galleryDescription = $_POST['galleryDescription'];
 
@@ -42,7 +43,7 @@ if(isset($_POST['fileUpdate'])) {
     if (empty($galleryTitle)) {
         $errors[] = "title=empty";
     }
-    if (empty($galleryName)) {
+    if (empty($galleryNewName)) {
         $errors[] = "name=empty";
     }
     if (empty($galleryCategory)) {
@@ -61,11 +62,13 @@ if(isset($_POST['fileUpdate'])) {
         header($location);
     }
     else {
-        $galleryName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
-        move_uploaded_file($submittedFileTmpName, "../assets/img/gallery/" . $galleryName);
+        $galleryNewName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
+        move_uploaded_file($submittedFileTmpName, "../assets/img/gallery/" . $galleryNewName);
         $con = new Connection();
-        $query = "UPDATE tb_gallery SET title = '$galleryTitle', name = '$galleryName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
+        $query = "UPDATE tb_gallery SET title = '$galleryTitle', name = '$galleryNewName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
         $queryRun = mysqli_query($con->getCon(), $query);
+        unlink("../assets/img/gallery/$galleryOldName");
+
         header("Location: ../index.php?update=success");
     }
 }

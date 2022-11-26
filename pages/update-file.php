@@ -51,9 +51,10 @@
             <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
             <input type="text" class="form-control" name="galleryTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryTitle']?>" required>
         </div>
+        <input type="hidden" class="form-control" name="galleryOldName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryName']?>" required>
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-            <input type="text" class="form-control" name="galleryName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=explode("-", $_POST['galleryName'])[0]?>" required>
+            <input type="text" class="form-control" name="galleryNewName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=explode("-", $_POST['galleryName'])[0]?>" required>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Category</span>

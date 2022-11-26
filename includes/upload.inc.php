@@ -7,7 +7,6 @@ if (isset($_POST['fileSubmit'])) {
     // User attributes desire
     $galleryTitle = strtolower(str_replace(" ", "-", $_POST['galleryTitle']));
     $galleryName = $_POST['galleryName'];
-    echo $galleryName;
     $galleryCategory = $_POST['galleryCategory'];
     $galleryDescription = $_POST['galleryDescription'];
 
