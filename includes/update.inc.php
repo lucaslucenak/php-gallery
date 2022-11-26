@@ -1,13 +1,10 @@
 <?php
+include_once("../db/connection/Connection.php");
 
-include_once ("../db/connection/Connection.php");
-
-if (isset($_POST['fileSubmit'])) {
-
-    // User attributes desire
+if(isset($_POST['fileUpdate'])) {
+    $galleryId = $_POST['galleryId'];
     $galleryTitle = strtolower(str_replace(" ", "-", $_POST['galleryTitle']));
     $galleryName = $_POST['galleryName'];
-    echo $galleryName;
     $galleryCategory = $_POST['galleryCategory'];
     $galleryDescription = $_POST['galleryDescription'];
 
@@ -55,25 +52,20 @@ if (isset($_POST['fileSubmit'])) {
         $errors[] = "description=empty";
     }
 
-
     if (sizeof($errors) != 0) {
         $location = "Location: ../index.php?";
         foreach ($errors as $error) {
-            $location .= $error . '&';
+            $location .= $error . "&";
         }
         $location = rtrim($location, "&");
         header($location);
     }
-    else {  // If is all ok
+    else {
         $galleryName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
-        move_uploaded_file($submittedFileTmpName, '../assets/img/gallery/' . $galleryName);
-
-        $connection = new Connection();
-        $query = "INSERT INTO tb_gallery (title, name, category, description) VALUES ('$galleryTitle', '$galleryName', '$galleryCategory', '$galleryDescription');";
-        $queryRun = mysqli_query($connection->getCon(), $query);
-
-        header("Location: ../index.php?upload=success");
-
+        move_uploaded_file($submittedFileTmpName, "../assets/img/gallery/" . $galleryName);
+        $con = new Connection();
+        $query = "UPDATE tb_gallery SET title = '$galleryTitle', name = '$galleryName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
+        $queryRun = mysqli_query($con->getCon(), $query);
+        header("Location: ../index.php?update=success");
     }
-
 }

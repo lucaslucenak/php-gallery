@@ -156,8 +156,16 @@ $_SESSION['usernameSession'] = 'Admin';
                                     <p class="card-text"><?=$gallery['description']?></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" name="view">View</button>
+<!--                                            UPDATE GALLERY-->
+                                            <form action="pages/update-file.php" method="post">
+                                                <input type="hidden" name="galleryId" value="<?=$gallery['id']?>">
+                                                <input type="hidden" name="galleryTitle" value="<?=$gallery['title']?>">
+                                                <input type="hidden" name="galleryName" value="<?=$gallery['name']?>">
+                                                <input type="hidden" name="galleryCategory" value="<?=$gallery['category']?>">
+                                                <input type="hidden" name="galleryDescription" value="<?=$gallery['description']?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary" name="update">Update</button>
+                                            </form>
                                         </div>
 <!--                                        <small class="text-muted">9 mins</small>-->
                                     </div>
