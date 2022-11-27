@@ -65,7 +65,6 @@ if (isset($_POST['fileSubmit'])) {
     }
     else {  // If is all ok
         $galleryFileName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
-//        $fileNameId = "-" . explode("-", $galleryFileName)[1];
         move_uploaded_file($submittedFileTmpName, '../assets/img/gallery/' . $galleryFileName);
 
         $connection = new Connection();

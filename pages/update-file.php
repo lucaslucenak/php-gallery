@@ -63,9 +63,9 @@
                 <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
                 <input type="text" class="form-control" name="galleryTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryTitle']?>" required>
             </div>
-            <input type="hidden" class="form-control" name="galleryOldName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryFileName']?>" required>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                <input type="hidden" class="form-control" name="galleryOldName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryFileName']?>" required>
                 <input type="text" class="form-control" name="galleryNewName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=explode("-", $_POST['galleryFileName'])[0]?>" required>
             </div>
             <div class="input-group mb-3">
@@ -77,7 +77,7 @@
                 <input type="text" class="form-control" name="galleryDescription" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryDescription']?>" required>
             </div>
             <div class="mb-3">
-                <input class="form-control" name="file" type="file" id="formFile" required>
+                <input class="form-control" name="file" type="file" id="formFile" >
             </div>
             <button class="btn btn-secondary my-2" type="submit" name="fileUpdate">Update File</button>
         </form>

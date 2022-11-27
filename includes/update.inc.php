@@ -5,7 +5,7 @@ if(isset($_POST['fileUpdate'])) {
     $galleryId = $_POST['galleryId'];
     $galleryTitle = strtolower(str_replace(" ", "-", $_POST['galleryTitle']));
     $galleryOldName = $_POST['galleryOldName'];
-    $galleryNewName = $_POST['galleryNewName'];
+    $galleryNewName = explode("-", $_POST['galleryNewName'])[0];
     $galleryCategory = $_POST['galleryCategory'];
     $galleryDescription = $_POST['galleryDescription'];
 
@@ -20,7 +20,6 @@ if(isset($_POST['fileUpdate'])) {
     $submittedFileTmpName = $submittedFile["tmp_name"];
     $submittedFileError = $submittedFile["error"];
     $submittedFileSize = $submittedFile["size"];
-    echo $submittedFile;
 
     $errors = array();
 
@@ -63,9 +62,15 @@ if(isset($_POST['fileUpdate'])) {
         header($location);
     }
     else {
-//        $fileNameId = "-" . explode("-", $galleryNewName)[1];
         $con = new Connection();
-        $query = "UPDATE tb_gallery SET title = '$galleryTitle', file_name = '$galleryNewName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
+        $query = "UPDATE tb_gallery SET title = '$galleryTitle', file_name = '$galleryOldName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
+
+        if ($submittedFileSize != 0) {
+            $galleryNewName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
+            $query = "UPDATE tb_gallery SET title = '$galleryTitle', file_name = '$galleryNewName', category = '$galleryCategory', description = '$galleryDescription' WHERE id = $galleryId";
+            move_uploaded_file($submittedFileTmpName, "../assets/img/gallery/" . $galleryNewName);
+        }
+
         $queryRun = mysqli_query($con->getCon(), $query);
 
         header("Location: ../index.php?update=success");
