@@ -111,7 +111,7 @@ $_SESSION['usernameSession'] = 'Admin';
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-                            <input type="text" class="form-control" name="galleryName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            <input type="text" class="form-control" name="galleryFileName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Category</span>
@@ -122,7 +122,7 @@ $_SESSION['usernameSession'] = 'Admin';
                             <input type="text" class="form-control" name="galleryDescription" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" name="file" type="file" id="formFile">
+                            <input class="form-control" name="file" type="file" id="formFile" required>
                         </div>
                         <button class="btn btn-secondary my-2" type="submit" name="fileSubmit">Submit File</button>
                     </form>';
@@ -149,7 +149,7 @@ $_SESSION['usernameSession'] = 'Admin';
                         ?>
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="assets/img/gallery/<?=$gallery['name']?>" class="gallery-img">
+                                <img src="assets/img/gallery/<?=$gallery['file_name']?>" class="gallery-img">
     
                                 <div class="card-body">
                                     <h1><?=$gallery['title']?></h1>
@@ -161,7 +161,8 @@ $_SESSION['usernameSession'] = 'Admin';
                                             <form action="pages/update-file.php" method="post">
                                                 <input type="hidden" name="galleryId" value="<?=$gallery['id']?>">
                                                 <input type="hidden" name="galleryTitle" value="<?=$gallery['title']?>">
-                                                <input type="hidden" name="galleryName" value="<?=$gallery['name']?>">
+                                                <input type="hidden" name="galleryFileName" value="<?=$gallery['file_name']?>">
+<!--                                                <input type="hidden" name="galleryNameId" value="--><?//=$gallery['file_name_id']?><!--">-->
                                                 <input type="hidden" name="galleryCategory" value="<?=$gallery['category']?>">
                                                 <input type="hidden" name="galleryDescription" value="<?=$gallery['description']?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-secondary" name="update">Update</button>

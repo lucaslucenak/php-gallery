@@ -31,8 +31,11 @@
         }
 
         .gallery-img {
-            width: 100%;
-            height: 100%;
+            max-width: 20rem;
+            max-height: 20rem;
+            width: auto;
+            height: auto;
+            object-fit: fill;
         }
 
         @media (min-width: 768px) {
@@ -45,30 +48,42 @@
 <body>
 <?php
     ?>
-    <form action="../includes/update.inc.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="galleryId" value="<?=$_POST['galleryId']?>">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
-            <input type="text" class="form-control" name="galleryTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryTitle']?>" required>
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="album py-5 bg-light" id="gallery">
+            <div class="container">
+                <img src="../assets/img/gallery/<?=$_POST['galleryFileName']?>" class="gallery-img" >
+            </div>
         </div>
-        <input type="hidden" class="form-control" name="galleryOldName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryName']?>" required>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-            <input type="text" class="form-control" name="galleryNewName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=explode("-", $_POST['galleryName'])[0]?>" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Category</span>
-            <input type="text" class="form-control" name="galleryCategory" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryCategory']?>" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
-            <input type="text" class="form-control" name="galleryDescription" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryDescription']?>" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-control" name="file" type="file" id="formFile">
-        </div>
-        <button class="btn btn-secondary my-2" type="submit" name="fileUpdate">Update File</button>
-    </form>
+        <form action="../includes/update.inc.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="galleryId" value="<?=$_POST['galleryId']?>">
+            <!--        <input type="hidden" name="galleryNameId" value="--><?//=$_POST['galleryNameId']?><!--">-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+                <input type="text" class="form-control" name="galleryTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryTitle']?>" required>
+            </div>
+            <input type="hidden" class="form-control" name="galleryOldName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryFileName']?>" required>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                <input type="text" class="form-control" name="galleryNewName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=explode("-", $_POST['galleryFileName'])[0]?>" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Category</span>
+                <input type="text" class="form-control" name="galleryCategory" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryCategory']?>" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                <input type="text" class="form-control" name="galleryDescription" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<?=$_POST['galleryDescription']?>" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" name="file" type="file" id="formFile" required>
+            </div>
+            <button class="btn btn-secondary my-2" type="submit" name="fileUpdate">Update File</button>
+        </form>
+    </div>
+</div>
+
     <?php
 ?>
 

@@ -6,9 +6,9 @@ if (isset($_POST['fileSubmit'])) {
 
     // User attributes desire
     $galleryTitle = strtolower(str_replace(" ", "-", $_POST['galleryTitle']));
-    $galleryName = $_POST['galleryName'];
-    $galleryCategory = $_POST['galleryCategory'];
-    $galleryDescription = $_POST['galleryDescription'];
+    $galleryFileName = (string) $_POST['galleryFileName'];
+    $galleryCategory = (string) $_POST['galleryCategory'];
+    $galleryDescription = (string) $_POST['galleryDescription'];
 
     // File restrictions
     $allowedFileTypes = array("image/jpeg", "image/gif", "image/png", "image/jpg");
@@ -44,7 +44,7 @@ if (isset($_POST['fileSubmit'])) {
     if (empty($galleryTitle)) {
         $errors[] = "title=empty";
     }
-    if (empty($galleryName)) {
+    if (empty($galleryFileName)) {
         $errors[] = "name=empty";
     }
     if (empty($galleryCategory)) {
@@ -64,11 +64,12 @@ if (isset($_POST['fileSubmit'])) {
         header($location);
     }
     else {  // If is all ok
-        $galleryName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
-        move_uploaded_file($submittedFileTmpName, '../assets/img/gallery/' . $galleryName);
+        $galleryFileName .= "-" . uniqid("gallery_", true) . "." . explode("/", $submittedFileType)[1];
+//        $fileNameId = "-" . explode("-", $galleryFileName)[1];
+        move_uploaded_file($submittedFileTmpName, '../assets/img/gallery/' . $galleryFileName);
 
         $connection = new Connection();
-        $query = "INSERT INTO tb_gallery (title, name, category, description) VALUES ('$galleryTitle', '$galleryName', '$galleryCategory', '$galleryDescription');";
+        $query = "INSERT INTO tb_gallery (title, file_name, category, description) VALUES ('$galleryTitle', '$galleryFileName', '$galleryCategory', '$galleryDescription');";
         $queryRun = mysqli_query($connection->getCon(), $query);
 
         header("Location: ../index.php?upload=success");
